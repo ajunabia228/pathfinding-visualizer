@@ -2,6 +2,12 @@
 
 An interactive **Pathfinding Visualizer** built with **HTML, CSS, and JavaScript** that demonstrates how different graph traversal and shortest-path algorithms explore a grid.
 
+<p align="center">
+  <a href="https://ajunabia228.github.io/pathfinding-visualizer/">
+    <img src="https://img.shields.io/badge/▶%20TEST%20IT%20LIVE-00ff88?style=for-the-badge&logoColor=black" alt="Test it live">
+  </a>
+</p>
+
 Users can:
 - 🟩 Set a start node
 - 🟥 Set an end node
