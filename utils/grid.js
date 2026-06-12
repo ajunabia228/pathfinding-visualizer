@@ -1,47 +1,47 @@
-const ROWS = 20;
-const COLS = 35;
+// utils/grid.js
+// Creates and manages the grid data structure.
 
-const START_NODE_ROW = 10;
-const START_NODE_COL = 5;
-const END_NODE_ROW = 10;
-const END_NODE_COL = 25;
+const ROWS = 20;
+const COLS = 45;
+
+function createGrid() {
+  const grid = [];
+  for (let r = 0; r < ROWS; r++) {
+    const row = [];
+    for (let c = 0; c < COLS; c++) {
+      row.push(createNode(r, c));
+    }
+    grid.push(row);
+  }
+  return grid;
+}
 
 function createNode(row, col) {
   return {
     row,
     col,
-    isStart: row === START_NODE_ROW && col === START_NODE_COL,
-    isEnd: row === END_NODE_ROW && col === END_NODE_COL,
-    isWall: false,
-    isVisited: false,
-    distance: Infinity,
-    heuristic: Infinity,
-    totalCost: Infinity,
+    isStart:   false,
+    isEnd:     false,
+    isWall:    false,
+    isWeight:  false,
+    weight:    1,          // default cost; weighted nodes use 5
+    distance:  Infinity,
+    fScore:    Infinity,
+    gScore:    Infinity,
+    hScore:    0,
+    visited:   false,
     previousNode: null,
   };
 }
 
-function createGrid() {
-  const grid = [];
-
-  for (let row = 0; row < ROWS; row++) {
-    const currentRow = [];
-    for (let col = 0; col < COLS; col++) {
-      currentRow.push(createNode(row, col));
-    }
-    grid.push(currentRow);
-  }
-
-  return grid;
-}
-
-function resetGridState(grid) {
+function resetPathData(grid) {
   for (const row of grid) {
     for (const node of row) {
-      node.isVisited = false;
-      node.distance = Infinity;
-      node.heuristic = Infinity;
-      node.totalCost = Infinity;
+      node.distance     = Infinity;
+      node.fScore       = Infinity;
+      node.gScore       = Infinity;
+      node.hScore       = 0;
+      node.visited      = false;
       node.previousNode = null;
     }
   }
@@ -50,27 +50,19 @@ function resetGridState(grid) {
 function getNeighbors(node, grid) {
   const neighbors = [];
   const { row, col } = node;
-
-  if (row > 0) neighbors.push(grid[row - 1][col]);
-  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-  if (col > 0) neighbors.push(grid[row][col - 1]);
-  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-
-  return neighbors;
+  if (row > 0)           neighbors.push(grid[row - 1][col]);
+  if (row < ROWS - 1)    neighbors.push(grid[row + 1][col]);
+  if (col > 0)           neighbors.push(grid[row][col - 1]);
+  if (col < COLS - 1)    neighbors.push(grid[row][col + 1]);
+  return neighbors.filter(n => !n.isWall);
 }
 
-function getNodesInPathOrder(endNode) {
+function getNodesInShortestPath(endNode) {
   const path = [];
-  let currentNode = endNode;
-
-  while (currentNode !== null) {
-    path.unshift(currentNode);
-    currentNode = currentNode.previousNode;
+  let current = endNode;
+  while (current !== null) {
+    path.unshift(current);
+    current = current.previousNode;
   }
-
   return path;
-}
-
-function manhattanDistance(nodeA, nodeB) {
-  return Math.abs(nodeA.row - nodeB.row) + Math.abs(nodeA.col - nodeB.col);
 }

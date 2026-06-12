@@ -1,42 +1,38 @@
+// algorithms/astar.js
+// A* Search — weighted, guarantees shortest path using g + h cost.
+
 function astar(grid, startNode, endNode) {
-  const visitedNodesInOrder = [];
-  const openSet = [];
+  const visitedInOrder = [];
 
-  startNode.distance = 0;
-  startNode.heuristic = manhattanDistance(startNode, endNode);
-  startNode.totalCost = startNode.distance + startNode.heuristic;
-
-  openSet.push(startNode);
+  startNode.gScore = 0;
+  startNode.fScore = heuristicA(startNode, endNode);
+  const openSet = [startNode];
 
   while (openSet.length > 0) {
-    openSet.sort((a, b) => a.totalCost - b.totalCost);
-    const currentNode = openSet.shift();
+    openSet.sort((a, b) => a.fScore - b.fScore);
+    const current = openSet.shift();
 
-    if (currentNode.isWall || currentNode.isVisited) continue;
+    if (current.visited) continue;
+    current.visited = true;
+    visitedInOrder.push(current);
 
-    currentNode.isVisited = true;
-    visitedNodesInOrder.push(currentNode);
+    if (current === endNode) return visitedInOrder;
 
-    if (currentNode === endNode) {
-      return visitedNodesInOrder;
-    }
-
-    const neighbors = getNeighbors(currentNode, grid);
-
-    for (const neighbor of neighbors) {
-      if (neighbor.isWall || neighbor.isVisited) continue;
-
-      const tentativeDistance = currentNode.distance + 1;
-
-      if (tentativeDistance < neighbor.distance) {
-        neighbor.distance = tentativeDistance;
-        neighbor.heuristic = manhattanDistance(neighbor, endNode);
-        neighbor.totalCost = neighbor.distance + neighbor.heuristic;
-        neighbor.previousNode = currentNode;
+    for (const neighbor of getNeighbors(current, grid)) {
+      if (neighbor.visited) continue;
+      const tentativeG = current.gScore + neighbor.weight;
+      if (tentativeG < neighbor.gScore) {
+        neighbor.previousNode = current;
+        neighbor.gScore       = tentativeG;
+        neighbor.hScore       = heuristicA(neighbor, endNode);
+        neighbor.fScore       = neighbor.gScore + neighbor.hScore;
         openSet.push(neighbor);
       }
     }
   }
+  return visitedInOrder;
+}
 
-  return visitedNodesInOrder;
+function heuristicA(nodeA, nodeB) {
+  return Math.abs(nodeA.row - nodeB.row) + Math.abs(nodeA.col - nodeB.col);
 }

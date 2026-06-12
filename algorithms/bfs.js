@@ -1,31 +1,24 @@
-function bfs(grid, startNode, endNode) {
-  const visitedNodesInOrder = [];
-  const queue = [];
+// algorithms/bfs.js
+// Breadth-First Search — unweighted, guarantees shortest path.
 
-  startNode.isVisited = true;
-  queue.push(startNode);
+function bfs(grid, startNode, endNode) {
+  const visitedInOrder = [];
+  const queue = [startNode];
+  startNode.visited = true;
 
   while (queue.length > 0) {
-    const currentNode = queue.shift();
+    const current = queue.shift();
+    visitedInOrder.push(current);
 
-    if (currentNode.isWall) continue;
+    if (current === endNode) return visitedInOrder;
 
-    visitedNodesInOrder.push(currentNode);
-
-    if (currentNode === endNode) {
-      return visitedNodesInOrder;
-    }
-
-    const neighbors = getNeighbors(currentNode, grid);
-
-    for (const neighbor of neighbors) {
-      if (!neighbor.isVisited && !neighbor.isWall) {
-        neighbor.isVisited = true;
-        neighbor.previousNode = currentNode;
+    for (const neighbor of getNeighbors(current, grid)) {
+      if (!neighbor.visited) {
+        neighbor.visited      = true;
+        neighbor.previousNode = current;
         queue.push(neighbor);
       }
     }
   }
-
-  return visitedNodesInOrder;
+  return visitedInOrder;
 }

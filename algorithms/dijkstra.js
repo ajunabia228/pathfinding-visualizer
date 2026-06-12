@@ -1,56 +1,35 @@
+// algorithms/dijkstra.js
+// Dijkstra's Algorithm — weighted, guarantees shortest path.
+
 function dijkstra(grid, startNode, endNode) {
-  const visitedNodesInOrder = [];
+  const visitedInOrder = [];
   startNode.distance = 0;
 
-  const unvisitedNodes = getAllNodes(grid);
+  // Min-heap style: only track unvisited reachable nodes
+  const openSet = [startNode];
 
-  while (unvisitedNodes.length > 0) {
-    sortNodesByDistance(unvisitedNodes);
-    const closestNode = unvisitedNodes.shift();
+  while (openSet.length > 0) {
+    // Sort only the open set (much smaller than all nodes)
+    openSet.sort((a, b) => a.distance - b.distance);
+    const closest = openSet.shift();
 
-    if (closestNode.isWall) continue;
+    if (closest.visited) continue;
+    if (closest.distance === Infinity) break; // unreachable
 
-    if (closestNode.distance === Infinity) {
-      return visitedNodesInOrder;
-    }
+    closest.visited = true;
+    visitedInOrder.push(closest);
 
-    closestNode.isVisited = true;
-    visitedNodesInOrder.push(closestNode);
+    if (closest === endNode) return visitedInOrder;
 
-    if (closestNode === endNode) {
-      return visitedNodesInOrder;
-    }
-
-    updateUnvisitedNeighbors(closestNode, grid);
-  }
-
-  return visitedNodesInOrder;
-}
-
-function sortNodesByDistance(unvisitedNodes) {
-  unvisitedNodes.sort((a, b) => a.distance - b.distance);
-}
-
-function updateUnvisitedNeighbors(node, grid) {
-  const neighbors = getNeighbors(node, grid).filter((neighbor) => !neighbor.isVisited);
-
-  for (const neighbor of neighbors) {
-    if (neighbor.isWall) continue;
-
-    const newDistance = node.distance + 1;
-    if (newDistance < neighbor.distance) {
-      neighbor.distance = newDistance;
-      neighbor.previousNode = node;
+    for (const neighbor of getNeighbors(closest, grid)) {
+      if (neighbor.visited) continue;
+      const newDist = closest.distance + neighbor.weight;
+      if (newDist < neighbor.distance) {
+        neighbor.distance     = newDist;
+        neighbor.previousNode = closest;
+        openSet.push(neighbor);
+      }
     }
   }
-}
-
-function getAllNodes(grid) {
-  const nodes = [];
-  for (const row of grid) {
-    for (const node of row) {
-      nodes.push(node);
-    }
-  }
-  return nodes;
+  return visitedInOrder;
 }
