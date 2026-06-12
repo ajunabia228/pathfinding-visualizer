@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pathfinding Visualizer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Start Menu Modal -->
+    <div id="start-menu" class="modal-overlay">
+      <div class="modal">
+        <h2>Welcome to the Pathfinding Visualizer</h2>
+        <p>
+          This app lets you explore how different pathfinding algorithms work on
+          a grid.
+        </p>
+        <ul class="instructions-list">
+          <li>Click or drag on the grid to place walls.</li>
+          <li>Green = Start node</li>
+          <li>Red = End node</li>
+          <li>Black = Wall</li>
+          <li>Blue = Visited node</li>
+          <li>Yellow = Final path</li>
+          <li>Select an algorithm and click Visualize.</li>
+          <li>You can pause and resume animations.</li>
+        </ul>
+        <button id="start-app-btn">Start Visualizing</button>
+      </div>
+    </div>
+
+    <div class="app">
+      <h1>Pathfinding Visualizer</h1>
+
+      <div class="controls">
+        <select id="algorithm-select">
+          <option value="bfs">BFS</option>
+          <option value="dfs">DFS</option>
+          <option value="dijkstra">Dijkstra</option>
+          <option value="greedy">Greedy Best-First Search</option>
+          <option value="astar">A* Search</option>
+        </select>
+
+        <button id="visualize-btn">Visualize</button>
+        <button id="pause-btn">Pause</button>
+        <button id="clear-path-btn">Clear Path</button>
+        <button id="reset-board-btn">Reset Board</button>
+        <button id="show-instructions-btn">Instructions</button>
+      </div>
+
+      <div id="status-text" class="status-text">Ready</div>
+
+      <div class="legend">
+        <div><span class="legend-box start"></span> Start</div>
+        <div><span class="legend-box end"></span> End</div>
+        <div><span class="legend-box wall"></span> Wall</div>
+        <div><span class="legend-box visited"></span> Visited</div>
+        <div><span class="legend-box path"></span> Path</div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <script src="utils/grid.js"></script>
+    <script src="algorithms/bfs.js"></script>
+    <script src="algorithms/dfs.js"></script>
+    <script src="algorithms/dijkstra.js"></script>
+    <script src="algorithms/greedy.js"></script>
+    <script src="algorithms/astar.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
