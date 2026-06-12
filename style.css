@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #222;
+}
+
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.controls {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.controls select,
+.controls button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.controls button:hover,
+.controls select:hover {
+  background: #eef4ff;
+}
+
+.status-text {
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #444;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.legend-box {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+}
+
+.legend-box.start {
+  background: #2ecc71;
+}
+
+.legend-box.end {
+  background: #e74c3c;
+}
+
+.legend-box.wall {
+  background: #2d3436;
+}
+
+.legend-box.visited {
+  background: #74b9ff;
+}
+
+.legend-box.path {
+  background: #f1c40f;
+}
+
+.grid {
+  display: inline-block;
+  user-select: none;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.node {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #d9e2ec;
+  background: white;
+}
+
+.node-start {
+  background: #2ecc71;
+}
+
+.node-end {
+  background: #e74c3c;
+}
+
+.node-wall {
+  background: #2d3436;
+}
+
+.node-visited {
+  background: #74b9ff;
+  transition: background-color 0.2s ease;
+}
+
+.node-path {
+  background: #f1c40f;
+  transition: background-color 0.2s ease;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: min(90%, 500px);
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 12px;
+}
+
+.modal p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.instructions-list {
+  margin: 12px 0 18px 20px;
+  line-height: 1.7;
+}
+
+.modal button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #4c7dff;
+  color: white;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #3f6ee8;
+}
