@@ -73,11 +73,16 @@ Users can:
 
 ## 🛠️ Built With
 
-- **HTML**
-- **CSS**
-- **JavaScript**
-
-No frameworks or build tools required.
+<p align="center">
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
+    <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
+    <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  </a>
 
 ---
 
@@ -131,7 +136,7 @@ If you want a smoother local experience:
 6. Click **🌀 Maze** to auto-generate a maze
 7. Choose an algorithm from the dropdown
 8. Adjust the **Speed** slider (Slow / Medium / Fast)
-9. Click **▶ Visualize** — or press `Space`
+9. Click **▶ Visualize** or press `Space`
 10. Use **⏸ Pause** to pause mid-animation and **▶ Resume** to continue
 11. Use **🧹 Clear Path** to remove visited/path colours while keeping walls
 12. Use **↺ Reset** to restore the full board
@@ -157,11 +162,11 @@ If you want a smoother local experience:
 
 ## 📌 Notes on Algorithm Behavior
 
-- **BFS** and **Dijkstra** will look similar on an unweighted board — add weight nodes to see them diverge
+- **BFS** and **Dijkstra** will look similar on an unweighted board (add weight nodes to see them diverge)
 - **DFS** does not guarantee the shortest path
 - **Greedy Best-First** can be fast but may miss the optimal route
 - **A\*** is the most efficient at finding the true shortest path on weighted grids
-- Weighted nodes only affect **Dijkstra** and **A\*** — BFS and DFS ignore them entirely
+- Weighted nodes only affect **Dijkstra** and **A\*** (BFS and DFS ignore them entirely)
 
 ---
 
